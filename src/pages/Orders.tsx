@@ -29,7 +29,7 @@ export const Orders = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/orders?userId=${user.id}`, {
+        const response = await fetch(`http://localhost:3000/orders/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
