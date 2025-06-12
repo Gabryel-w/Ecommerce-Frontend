@@ -35,8 +35,9 @@ const Home = () => {
       position: 'bottom-right',
       duration: 3000,
       style: {
-       background: '#363636',
-            color: '#fff',}
+        background: '#363636',
+        color: '#fff',
+      }
     });
   };
 
@@ -105,7 +106,12 @@ const Home = () => {
                 >
                   <div className="bg-gray-200 h-48 flex items-center justify-center">
                     <img
-                      src={product.image || placeholderImage}
+                      src={
+                        !product.image ||
+                          product.image.includes('placeimg.com')
+                          ? placeholderImage
+                          : product.image
+                      }
                       alt={product.name}
                       className="object-fit h-full w-100"
                       onError={(e) => {
@@ -128,9 +134,8 @@ const Home = () => {
                           {[1, 2, 3, 4, 5].map((star) => (
                             <svg
                               key={star}
-                              className={`h-4 w-4 ${
-                                star <= 4 ? 'text-yellow-400' : 'text-gray-300'
-                              }`}
+                              className={`h-4 w-4 ${star <= 4 ? 'text-yellow-400' : 'text-gray-300'
+                                }`}
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
