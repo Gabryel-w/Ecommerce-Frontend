@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useLocation } from 'react-router-dom';
 import placeholderImage from '../assets/placeholderImage.png';
 import { toast } from 'react-hot-toast';
 
@@ -17,6 +18,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { addToCart } = useCart();
   const { user } = useAuth();
+  const location = useLocation();
 
   useEffect(() => {
     fetch('http://localhost:3000/products')
@@ -24,6 +26,12 @@ const Home = () => {
       .then(setProducts)
       .catch((err) => console.error('Erro ao carregar produtos:', err));
   }, []);
+
+  useEffect(() => {
+    if (location.state?.searchTerm) {
+      setSearchTerm(location.state.searchTerm);
+    }
+  }, [location.state]);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -43,34 +51,6 @@ const Home = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen pb-10">
-      <div className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="container mx-auto p-20">
-          <div className="relative max-w-2xl mx-auto">
-            <input
-              type="text"
-              placeholder="Buscar produtos..."
-              className="w-full p-3 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <svg
-              className="absolute left-3 top-3.5 h-5 w-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-
       <div className="container mx-auto px-4 mt-6">
         {filteredProducts.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">

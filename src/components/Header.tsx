@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { SearchBar } from './SearchBar';
 
 export const Header = () => {
     const { user, logout } = useAuth();
@@ -16,25 +17,34 @@ export const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleSearch = (term: string) => {
+        navigate('/', { state: { searchTerm: term } });
+    };
+
     return (
         <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
-            <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-                {/* Logo */}
-                <Link to="/" className="text-2xl font-bold hover:text-yellow-400">
-                    <span className="text-yellow-400">Nest</span>Store
-                </Link>
+            <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
+                <div className="flex justify-between items-center">
+                    <Link to="/" className="text-2xl font-bold hover:text-yellow-400">
+                        <span className="text-yellow-400">Nest</span>Store
+                    </Link>
 
-                <button 
-                    className="md:hidden p-2 focus:outline-none"
-                    onClick={toggleMenu}
-                    aria-label="Toggle menu"
-                >
-                    <div className="w-6 flex flex-col space-y-1">
-                        <span className={`h-0.5 w-full bg-white transition ${isMenuOpen ? 'transform rotate-45 translate-y-1.5' : ''}`}></span>
-                        <span className={`h-0.5 w-full bg-white transition ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                        <span className={`h-0.5 w-full bg-white transition ${isMenuOpen ? 'transform -rotate-45 -translate-y-1.5' : ''}`}></span>
-                    </div>
-                </button>
+                    <button 
+                        className="md:hidden p-2 focus:outline-none"
+                        onClick={toggleMenu}
+                        aria-label="Toggle menu"
+                    >
+                        <div className="w-6 flex flex-col space-y-1">
+                            <span className={`h-0.5 w-full bg-white transition ${isMenuOpen ? 'transform rotate-45 translate-y-1.5' : ''}`}></span>
+                            <span className={`h-0.5 w-full bg-white transition ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                            <span className={`h-0.5 w-full bg-white transition ${isMenuOpen ? 'transform -rotate-45 -translate-y-1.5' : ''}`}></span>
+                        </div>
+                    </button>
+                </div>
+
+                <div className="w-full md:w-1/2 px-4 md:px-0">
+                    <SearchBar onSearch={handleSearch} />
+                </div>
 
                 <nav className="hidden md:flex items-center space-x-6">
                     <Link to="/" className="hover:text-yellow-400 font-medium">Produtos</Link>
