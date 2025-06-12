@@ -52,7 +52,7 @@ const Cart = () => {
     return (
       <div className="bg-gray-100 min-h-screen py-10">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <div className="bg-white rounded-lg shadow-md p-8 text-center mt-50">
             <svg
               className="mx-auto h-16 w-16 text-gray-400 mb-4"
               fill="none"
@@ -71,7 +71,7 @@ const Cart = () => {
             <p className="text-gray-600 mb-6">Adicione itens ao seu carrinho para começar a comprar</p>
             <button
               onClick={() => navigate('/')}
-              className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-medium py-2 px-6 rounded-md shadow-sm"
+              className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-medium py-2 px-6 rounded-md shadow-sm"
             >
               Continuar comprando
             </button>

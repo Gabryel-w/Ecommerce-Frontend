@@ -26,7 +26,6 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log('Login successful:', data.email);
       login(data.token, data.user);
       navigate('/orders');
 
