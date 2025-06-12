@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
 import placeholderImage from '../assets/placeholderImage.png';
+import { toast } from 'react-hot-toast';
 
 type Product = {
   id: number;
@@ -14,6 +16,7 @@ const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     fetch('http://localhost:3000/products')
@@ -25,6 +28,17 @@ const Home = () => {
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleAddToCart = (product: Product) => {
+    addToCart({ ...product, id: String(product.id), quantity: 1 });
+    toast.success(`${product.name} adicionado ao carrinho!`, {
+      position: 'bottom-right',
+      duration: 3000,
+      style: {
+       background: '#363636',
+            color: '#fff',}
+    });
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen pb-10">
@@ -138,28 +152,32 @@ const Home = () => {
                             Em até 12x sem juros
                           </p>
                         </div>
-                        <button
-                          onClick={() =>
-                            addToCart({ ...product, id: String(product.id), quantity: 1 })
-                          }
-                          className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-2 px-4 rounded-md text-sm font-medium transition-colors duration-200 flex items-center"
-                        >
-                          <svg
-                            className="h-5 w-5 mr-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
+                        {user ? (
+                          <button
+                            onClick={() => handleAddToCart(product)}
+                            className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-2 px-4 rounded-md text-sm font-medium transition-colors duration-200 flex items-center"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                            />
-                          </svg>
-                          Comprar
-                        </button>
+                            <svg
+                              className="h-5 w-5 mr-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                              />
+                            </svg>
+                            Comprar
+                          </button>
+                        ) : (
+                          <div className="text-xs text-gray-500">
+                            Faça login para comprar
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
