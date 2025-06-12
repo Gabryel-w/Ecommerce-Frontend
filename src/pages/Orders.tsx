@@ -183,12 +183,9 @@ export const Orders = () => {
                             <p className="font-medium">R$ {(item.product.price * item.quantity).toFixed(2)}</p>
                           </div>
                           <div className="mt-2 flex justify-end">
-                            <button
-                              onClick={() => navigate(`/product/${item.product.id}`)}
-                              className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
-                            >
-                              Comprar novamente
-                            </button>
+                            <p className="text-sm text-gray-600">
+                              R$ {item.product.price.toFixed(2)} cada
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -198,12 +195,6 @@ export const Orders = () => {
               </div>
 
               <div className="border-t p-4 bg-gray-50 flex justify-end">
-                <button
-                  onClick={() => navigate(`/order/${order.id}`)}
-                  className="text-sm bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md shadow-sm"
-                >
-                  Ver detalhes do pedido
-                </button>
               </div>
             </div>
           ))}

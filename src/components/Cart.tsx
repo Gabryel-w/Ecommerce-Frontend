@@ -1,6 +1,7 @@
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import placeholderImage from '../assets/placeholderImage.png';
 
 const Cart = () => {
   const { cart, removeFromCart, clearCart } = useCart();
@@ -84,9 +85,8 @@ const Cart = () => {
     <div className="bg-gray-100 min-h-screen py-8">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Carrinho de Compras</h1>
-        
+
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Lista de itens */}
           <div className="bg-white rounded-lg shadow-md p-6 flex-1">
             <div className="border-b pb-4 mb-4 hidden md:block">
               <div className="grid grid-cols-12 gap-4 text-gray-500 font-medium text-sm">
@@ -101,24 +101,16 @@ const Cart = () => {
               {cart.map((item) => (
                 <li key={item.id} className="py-4">
                   <div className="flex flex-col md:flex-row md:items-center gap-4">
-                    {/* Imagem do produto */}
                     <div className="bg-gray-200 rounded-md w-24 h-24 flex items-center justify-center">
-                      {item.image ? (
-                        <img src={item.image} alt={item.name} className="object-contain h-full" />
-                      ) : (
-                        <svg className="h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      )}
+                      <img src={placeholderImage} alt={item.name} className="object-contain h-full" />
                     </div>
-
                     <div className="flex-1">
                       <div className="flex justify-between">
                         <div>
                           <h3 className="font-medium text-gray-800">{item.name}</h3>
                           <button
                             onClick={() => removeFromCart(item.id)}
-                            className="text-yellow-600 hover:text-yellow-700 text-sm mt-1 flex items-center"
+                            className="text-yellow-600 hover:text-yellow-700 text-sm mt-1 flex items-center cursor-pointer"
                           >
                             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -151,9 +143,9 @@ const Cart = () => {
             <div className="flex justify-end mt-4">
               <button
                 onClick={clearCart}
-                className="text-gray-600 hover:text-gray-800 text-sm flex items-center"
+                className="text-gray-600 hover:text-gray-800 text-sm flex items-center cursor-pointer"
               >
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mr-1 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
                 Limpar carrinho
@@ -161,10 +153,9 @@ const Cart = () => {
             </div>
           </div>
 
-          {/* Resumo do pedido */}
           <div className="bg-white rounded-lg shadow-md p-6 h-fit lg:w-80">
             <h2 className="text-lg font-bold text-gray-800 mb-4">Resumo do Pedido</h2>
-            
+
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal ({cart.reduce((acc, item) => acc + item.quantity, 0)} itens)</span>
@@ -182,7 +173,7 @@ const Cart = () => {
 
             <button
               onClick={handleCheckout}
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-md shadow-sm transition-colors"
+              className="w-full bg-yellow-400 cursor-pointer hover:bg-yellow-500 text-gray-900 font-bold py-2 px-4 rounded-md shadow-sm transition-colors"
             >
               Finalizar Compra
             </button>
@@ -196,7 +187,7 @@ const Cart = () => {
         <div className="mt-6">
           <button
             onClick={() => navigate('/')}
-            className="text-blue-600 hover:text-blue-800 flex items-center"
+            className="text-blue-600 hover:text-blue-800 flex items-center cursor-pointer"
           >
             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

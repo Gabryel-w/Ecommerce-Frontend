@@ -21,10 +21,9 @@ export const Header = () => {
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 {/* Logo */}
                 <Link to="/" className="text-2xl font-bold hover:text-yellow-400">
-                    <span className="text-yellow-400">My</span>Store
+                    <span className="text-yellow-400">Nest</span>Store
                 </Link>
 
-                {/* Hamburger Menu Button - Mobile Only */}
                 <button 
                     className="md:hidden p-2 focus:outline-none"
                     onClick={toggleMenu}
@@ -37,14 +36,12 @@ export const Header = () => {
                     </div>
                 </button>
 
-                {/* Desktop Navigation - Hidden on Mobile */}
                 <nav className="hidden md:flex items-center space-x-6">
                     <Link to="/" className="hover:text-yellow-400 font-medium">Produtos</Link>
 
                     {!user ? (
                         <>
                             <Link to="/login" className="hover:text-yellow-400">Login</Link>
-                            <Link to="/register" className="hover:text-yellow-400">Registrar</Link>
                         </>
                     ) : (
                         <>
@@ -55,7 +52,7 @@ export const Header = () => {
                             <span className="text-gray-300">Olá, <strong className="text-yellow-400">{user.name}</strong></span>
                             <button
                                 onClick={handleLogout}
-                                className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm"
+                                className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm cursor-pointer"
                             >
                                 Sair
                             </button>
@@ -64,7 +61,6 @@ export const Header = () => {
                 </nav>
             </div>
 
-            {/* Mobile Menu - Only shows when hamburger is clicked */}
             {isMenuOpen && (
                 <div className="md:hidden bg-gray-800 pb-4 px-4">
                     <nav className="flex flex-col space-y-3">

@@ -100,19 +100,18 @@ const Register = () => {
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               required
-              placeholder="Mínimo de 6 caracteres"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white py-3 rounded-md font-medium shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            className="cursor-pointer w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white py-3 rounded-md font-medium shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
           >
-            Criar sua conta da MyStore
+            Criar sua conta da Nest Store
           </button>
 
           <div className="mt-4 text-xs text-gray-500">
-            Ao criar uma conta, você concorda com as Condições de Uso e o Aviso de Privacidade da MyStore.
+            Ao criar uma conta, você concorda com as Condições de Uso e o Aviso de Privacidade da Nest Store.
           </div>
         </form>
 
@@ -128,7 +127,7 @@ const Register = () => {
 
           <button
             onClick={() => navigate('/login')}
-            className="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded-md font-medium shadow-sm transition duration-150 ease-in-out border border-gray-300"
+            className="cursor-pointer mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded-md font-medium shadow-sm transition duration-150 ease-in-out border border-gray-300"
           >
             Fazer login
           </button>
