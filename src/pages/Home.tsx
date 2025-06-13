@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useLocation } from 'react-router-dom';
 import placeholderImage from '../assets/placeholderImage.png';
 import { toast } from 'react-hot-toast';
+import Pagination from '../components/Pagination';
 
 type Product = {
   id: number;
@@ -13,9 +14,12 @@ type Product = {
   image?: string;
 };
 
+const ITEMS_PER_PAGE = 16;
+
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const { addToCart } = useCart();
   const { user } = useAuth();
   const location = useLocation();
@@ -30,12 +34,25 @@ const Home = () => {
   useEffect(() => {
     if (location.state?.searchTerm) {
       setSearchTerm(location.state.searchTerm);
+      setCurrentPage(1); 
     }
   }, [location.state]);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const totalItems = filteredProducts.length;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleAddToCart = (product: Product) => {
     addToCart({ ...product, id: String(product.id), quantity: 1 });
@@ -80,7 +97,7 @@ const Home = () => {
               Produtos em Destaque
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
+              {paginatedProducts.map((product) => (
                 <div
                   key={product.id}
                   className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-col overflow-hidden border border-gray-200"
@@ -163,6 +180,14 @@ const Home = () => {
                 </div>
               ))}
             </div>
+
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            )}
           </>
         )}
       </div>
