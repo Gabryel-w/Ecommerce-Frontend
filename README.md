@@ -25,7 +25,6 @@ Frontend moderno para plataforma e-commerce simulada, com autenticação JWT, ge
 ### 📦 Pedidos
 - Histórico de compras
 - Detalhes do pedido
-- Status de entrega
 
 ### 🎨 UI/UX
 - Design responsivo (mobile-first)
